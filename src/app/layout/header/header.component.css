@@ -1,0 +1,70 @@
+.nav {
+  position: absolute;
+  display: flex;
+  height: 61px;
+  width: 100%;
+  left: 0px;
+  top: 0px;
+
+  background: #ffffff;
+  box-shadow: 0px 1px 0px #e2e5ed;
+}
+
+.logo {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 239px;
+  height: 61px;
+  left: 0px;
+  top: 0px;
+
+  background: #ffffff;
+  box-shadow: 1px 1px 0px #e2e5ed;
+}
+.logo .logo-text {
+  font-family: IBM Plex Sans, sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 31px;
+  color: #001737;
+}
+.logo .logo-text > span {
+  color: #0078d4;
+}
+.header {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  left: 240px;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+}
+
+/* .custom-style {
+  font-family: IBM Plex Sans, sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 10px;
+  border: 0px;
+  color: #001737;
+} */
+
+.user-info {
+  font-family: IBM Plex Sans, sans-serif;
+  font-style: normal;
+  font-size: 16px;
+  color: #001737;
+
+  display: flex;
+  align-items: center;
+}
+.user-name {
+  font-weight: bold;
+}

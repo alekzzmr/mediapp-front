@@ -1,0 +1,133 @@
+
+<p-card header="Paciente" >
+  <!-- Toolbar -->
+  <p-toolbar styleClass="p-mb-2">
+    <ng-template pTemplate="left">
+      <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-primary p-mr-2" (click)="openNew()"></button>
+<!--       <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedPacientes()"
+      [disabled]="!selectedPaciente || !selectedPaciente.length"></button> -->
+    </ng-template>
+
+    <ng-template pTemplate="right">
+    </ng-template>
+  </p-toolbar>
+
+  <!-- Tabla pacientes -->
+  <p-table #dt [value]="pacientes"
+  [rows]="10"
+  [showCurrentPageReport]="true"
+  [rowsPerPageOptions]="[10,25,50]"
+  [loading]="loading"
+  styleClass="p-datatable-sm"
+  [paginator]="true"
+  currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} entradas."
+  [filterDelay]="1"
+  [globalFilterFields]="['idPaciente','apellidos','nombres', 'dni', 'direccion', 'telefono', 'email']"
+  [rowHover]="true"
+  [(selection)]="selectedPaciente">
+    <ng-template pTemplate="caption">
+      <div class="table-header">
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+            placeholder="Filtrar" />
+        </span>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 3rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th pSortableColumn="idPaciente" style="width: 4rem" styleClass="p-text-center">Id <p-sortIcon field="idPaciente"></p-sortIcon></th>
+        <th pSortableColumn="apellidos">Apellidos <p-sortIcon field="apellidos"></p-sortIcon></th>
+        <th pSortableColumn="nombres">Nombres <p-sortIcon field="nombres"></p-sortIcon></th>
+        <th pSortableColumn="dni">DNI <p-sortIcon field="dni"></p-sortIcon></th>
+        <th pSortableColumn="direccion">Dirección <p-sortIcon field="direccion"></p-sortIcon></th>
+        <th pSortableColumn="telefono">Teléfono <p-sortIcon field="telefono"></p-sortIcon></th>
+        <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-paciente>
+      <tr>
+        <td>
+          <p-tableCheckbox [value]="paciente"></p-tableCheckbox>
+        </td>
+        <td>{{paciente.idPaciente}}</td>
+        <td>{{paciente.apellidos}}</td>
+        <td>{{paciente.nombres}}</td>
+        <td>{{paciente.dni}}</td>
+        <td>{{paciente.direccion}}</td>
+        <td>{{paciente.telefono}}</td>
+        <td>{{paciente.email}}</td>
+        <td>
+          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-info p-mr-2"
+            (click)="editPaciente(paciente)"></button>
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"
+            (click)="deletePaciente(paciente)"></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="7" class="p-text-center">
+          <h3>NO HAY DATOS DISPONIBLES.</h3>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>
+
+<!-- Modal Nuevo / Editar -->
+<p-dialog [(visible)]="pacienteDialog" [style]="{width: '500px'}" [modal]="true">
+  <p-header>
+    Detalle de paciente
+  </p-header>
+  <div class="modal-content">
+    <div class="p-field form-group">
+      <label for="nombres">Nombres</label>
+      <input type="text" pInputText id="nombres" [(ngModel)]="paciente.nombres" required autofocus />
+      <small class="p-invalid" *ngIf="submitted && !paciente.nombres">El nombre es obligatorio.</small>
+    </div>
+    <div class="p-field form-group">
+      <label for="apellidos">Apellidos</label>
+      <input type="text" pInputText id="apellidos" [(ngModel)]="paciente.apellidos" required />
+      <small class="p-invalid" *ngIf="submitted && !paciente.apellidos">Los apellidos son obligatorios.</small>
+    </div>
+    <div class="p-field form-group">
+      <label for="dni">DNI</label>
+      <input type="number" pInputText id="dni" [(ngModel)]="paciente.dni" required />
+      <small class="p-invalid" *ngIf="submitted && !paciente.dni">El DNI es obligatorio.</small>
+    </div>
+    <div class="p-field form-group">
+      <label for="direccion">Dirección</label>
+      <input type="text" pInputText id="direccion" [(ngModel)]="paciente.direccion" />
+      <!-- <small class="p-invalid" *ngIf="submitted">El DNI es obligatorio.</small> -->
+    </div>
+    <div class="p-field form-group">
+      <label for="telefono">Teléfono</label>
+      <p-inputMask [(ngModel)]="paciente.telefono" mask="999-999-999"></p-inputMask>
+      <!-- <input type="text" pInputText id="telefono" [(ngModel)]="paciente.telefono" autofocus /> -->
+      <!-- <small class="p-invalid" *ngIf="submitted">El DNI es obligatorio.</small> -->
+    </div>
+    <div class="p-field form-group">
+      <label for="email">E-mail</label>
+      <input type="email" pInputText id="email" [(ngModel)]="paciente.email" />
+      <small class="p-invalid" *ngIf="submitted && !paciente.email">El e-mail es obligatorio.</small>
+    </div>
+  </div>
+  <p-footer>
+    <div class="buttons-modal">
+      <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+      <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-text" (click)="savePaciente()"></button>
+    </div>
+  </p-footer>
+</p-dialog>
+
+<!-- Dialog Confirm -->
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+
+<!-- Success Message -->
+<p-toast></p-toast>

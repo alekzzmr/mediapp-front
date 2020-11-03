@@ -1,0 +1,14 @@
+.main-container {
+  position: absolute;
+  display: flex;
+  left: 0px;
+  top: 60px;
+  right: 0px;
+  bottom: 0px;
+}
+
+.content {
+  padding: 1.5rem;
+  position: relative;
+  width: 100%;
+}
