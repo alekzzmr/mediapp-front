@@ -13,6 +13,12 @@ import { MedicoComponent } from './pages/medico/medico.component';
 import { TableModule } from 'primeng/table';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
+import { CreateEditComponent } from './pages/medico/create-edit/create-edit.component';
+import { LoginComponent } from './pages/login/login.component';
+import { EspecialidadComponent } from './pages/especialidad/especialidad.component';
+import { ExamenComponent } from './pages/examen/examen.component';
+import { ConsultaComponent } from './pages/consulta/consulta.component';
+import { BuscarComponent } from './pages/buscar/buscar.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +26,13 @@ import { MessageService } from 'primeng/api';
     HeaderComponent,
     SidebarComponent,
     PacienteComponent,
-    MedicoComponent
+    MedicoComponent,
+    CreateEditComponent,
+    LoginComponent,
+    EspecialidadComponent,
+    ExamenComponent,
+    ConsultaComponent,
+    BuscarComponent
   ],
   imports: [
     BrowserAnimationsModule,

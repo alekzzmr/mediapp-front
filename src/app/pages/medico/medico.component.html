@@ -1,1 +1,73 @@
+<router-outlet></router-outlet>
+<p-card header="Medicos" [hidden]="route.children.length !== 0">
+  <p-toolbar styleClass="p-mb-2">
+    <ng-template pTemplate="left">
+      <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-primary p-mr-2"
+        (click)="openNew()"></button>
+      <!--       <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedPacientes()"
+        [disabled]="!selectedPaciente || !selectedPaciente.length"></button> -->
+    </ng-template>
+
+    <ng-template pTemplate="right">
+    </ng-template>
+  </p-toolbar>
+
+  <p-dataView #dv [value]="medicos" [paginator]="true" [rows]="9" layout="grid" filterBy="nombres" emptyMessage="NO HAY DATOS DISPONIBLES">
+    <ng-template pTemplate="header">
+      <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
+        <span class="p-input-icon-left p-mb-2 p-mb-md-0">
+          <i class="pi pi-search"></i>
+          <input type="search" pInputText placeholder="Filtrar por nombres" (input)="dv.filter($event.target.value)">
+        </span>
+        <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+      </div>
+    </ng-template>
+    <ng-template let-medico pTemplate="listItem">
+      <div class="p-col-12">
+        <div class="product-list-item">
+          <img src="{{medico.fotoUrl}}" alt="{{medico.nombres}}" />
+          <div class="product-list-detail">
+            <div class="product-name">{{medico.nombres}}</div>
+            <div class="product-description">{{medico.apellidos}}</div>
+            <!-- <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating> -->
+            <i class="pi pi-user product-category-icon"></i><span class="product-category">CMP: {{medico.cmp}}</span>
+          </div>
+          <div class="product-list-action">
+            <p-button icon="pi pi-pencil" styleClass="p-button-info" label="Editar" (click)="openEdit(medico.idMedico)" [style]="{width:'100%'}"></p-button>
+            <p-button icon="pi pi-trash" styleClass="p-button-danger" label="Eliminar" (click)="deleteMedico(medico)" [style]="{width:'100%'}"></p-button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template let-medico pTemplate="gridItem">
+      <div class="p-col-12 p-md-3">
+        <div class="product-grid-item card">
+          <div class="product-grid-item-top">
+            <div>
+              <i class="pi pi-user product-category-icon"></i>
+              <span class="product-category">CMP: {{medico.cmp}}</span>
+            </div>
+            <span class="'product-badge status-success">ESTADO</span>
+          </div>
+          <div class="product-grid-item-content">
+            <img src="{{medico.fotoUrl}}" alt="{{medico.nombres}}" />
+            <div class="product-name">{{medico.nombres}}</div>
+            <div class="product-description">{{medico.apellidos}}</div>
+            <!-- <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating> -->
+          </div>
+          <div class="product-grid-item-bottom">
+            <p-button icon="pi pi-pencil" styleClass="p-button-info" (click)="openEdit(medico.idMedico)"></p-button>
+            <p-button icon="pi pi-trash" styleClass="p-button-danger" (click)="deleteMedico(medico)"></p-button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-dataView>
+</p-card>
+
+<!-- Dialog Confirm -->
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+
+<!-- Success Message -->
+<p-toast></p-toast>
 

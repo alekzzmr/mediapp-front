@@ -23,7 +23,11 @@ export class PacienteComponent implements OnInit {
 
   pacienteDialog: boolean;
 
-  constructor(private pacienteService: PacienteService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
+  constructor(
+    private pacienteService: PacienteService,
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService
+  ) { }
 
   ngOnInit(): void {
     this.loading = false;
