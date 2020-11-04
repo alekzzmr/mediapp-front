@@ -61,7 +61,7 @@ export class SidebarComponent implements OnInit {
         {
           label: 'Especialidades.',
           icon: 'pi pi-sitemap',
-          routerLink: 'medico'
+          routerLink: 'especialidad'
         },
         {
           label: 'Médicos',

@@ -2,7 +2,7 @@
   <!-- Toolbar -->
   <p-toolbar styleClass="p-mb-2">
     <ng-template pTemplate="left">
-      <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-primary p-mr-2"></button>
+      <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-primary p-mr-2" (click)="openNew()"></button>
       <!--       <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedPacientes()"
       [disabled]="!selectedPaciente || !selectedPaciente.length"></button> -->
     </ng-template>

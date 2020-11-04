@@ -30,6 +30,8 @@ export class EspecialidadComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.especialidad = new Especialidad;
+
     this.especialidadService.listar().subscribe(data => {
       this.especialidades = data;
     });
