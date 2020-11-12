@@ -1,1 +1,26 @@
-<p>consulta works!</p>
+<p-card header="Registrar consulta">
+  <div class="p-grid p-fluid">
+    <div class="p-field p-col-12">
+      <label for="paciente">Paciente</label>
+      <p-dropdown [options]="pacientes" [(ngModel)]="paciente" placeholder="Seleccionar paciente" optionLabel="nombres"
+        [showClear]="true" (onChange)="mostrar()">
+      </p-dropdown>
+    </div>
+    <div class="p-field p-col-12">
+      <label for="medico">Médico</label>
+      <p-dropdown [options]="medicos" [(ngModel)]="medico" placeholder="Seleccionar médico" optionLabel="nombres"
+        [showClear]="true" (onChange)="mostrar()">
+      </p-dropdown>
+    </div>
+    <div class="p-field p-col-12">
+      <label for="especialidad">Especialidad</label>
+      <p-dropdown [options]="especialidades" [(ngModel)]="especialidad" placeholder="Seleccionar especialidad" optionLabel="nombre"
+        [showClear]="true" (onChange)="mostrar()">
+      </p-dropdown>
+    </div>
+    <div class="p-field p-col-4">
+      <label for="fecha">Fecha</label>
+      <p-calendar [(ngModel)]="fecha" [showIcon]="true" inputId="fecha" dateFormat="dd/mm/yy" [locale]="es"></p-calendar>
+    </div>
+  </div>
+</p-card>

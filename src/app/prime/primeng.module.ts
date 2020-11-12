@@ -16,27 +16,13 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { ToastModule } from 'primeng/toast';
 import { DataViewModule } from 'primeng/dataview';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { DropdownModule } from 'primeng/dropdown';
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    SidebarModule,
-    MenuModule,
-    ButtonModule,
-    ToggleButtonModule,
-    BreadcrumbModule,
-    FieldsetModule,
-    CardModule,
-    ToolbarModule,
-    InputTextModule,
-    DialogModule,
-    ConfirmDialogModule,
-    InputTextareaModule,
-    InputMaskModule,
-    ToastModule,
-    DataViewModule,
-    InputNumberModule
   ], exports: [
     CommonModule,
     SidebarModule,
@@ -54,7 +40,9 @@ import { InputNumberModule } from 'primeng/inputnumber';
     InputMaskModule,
     ToastModule,
     DataViewModule,
-    InputNumberModule
+    InputNumberModule,
+    DropdownModule,
+    CalendarModule
   ]
 })
 export class PrimengModule { }

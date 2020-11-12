@@ -48,7 +48,7 @@
           <p-tableCheckbox [value]="especialidad"></p-tableCheckbox>
         </td>
         <td>{{especialidad.idEspecialidad}}</td>
-        <td>{{especialidad.nombres}}</td>
+        <td>{{especialidad.nombre}}</td>
         <td>{{especialidad.descripcion}}</td>
         <td>
           <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-info p-mr-2"
@@ -81,7 +81,7 @@
     </div>
     <div class="p-field form-group">
       <label for="descripcion">Descripcion</label>
-      <input type="text" pInputText id="descripcion" [(ngModel)]="especialidad.descripcion" required />
+      <textarea id="description" pInputTextarea [(ngModel)]="especialidad.descripcion" required rows="3" cols="20"></textarea>
       <small class="p-invalid" *ngIf="submitted && !especialidad.descripcion">Los apellidos son obligatorios.</small>
     </div>
   </div>

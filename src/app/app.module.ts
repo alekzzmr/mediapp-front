@@ -19,6 +19,8 @@ import { EspecialidadComponent } from './pages/especialidad/especialidad.compone
 import { ExamenComponent } from './pages/examen/examen.component';
 import { ConsultaComponent } from './pages/consulta/consulta.component';
 import { BuscarComponent } from './pages/buscar/buscar.component';
+import { EspecialComponent } from './pages/consulta/especial/especial.component';
+import { WizardComponent } from './pages/consulta/wizard/wizard.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { BuscarComponent } from './pages/buscar/buscar.component';
     EspecialidadComponent,
     ExamenComponent,
     ConsultaComponent,
-    BuscarComponent
+    BuscarComponent,
+    EspecialComponent,
+    WizardComponent
   ],
   imports: [
     BrowserAnimationsModule,

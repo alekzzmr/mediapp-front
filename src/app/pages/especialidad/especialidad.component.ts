@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { from } from 'rxjs';
 import { Especialidad } from '../../_model/especialidad';
 import { EspecialidadService } from '../../_service/especialidad.service';
 import { ConfirmationService } from 'primeng/api';

@@ -41,22 +41,22 @@ export class SidebarComponent implements OnInit {
         {
           label: 'Buscar',
           icon: 'pi pi-search',
-          routerLink: 'medico'
+          routerLink: 'buscar'
         },
         {
           label: 'Resgistrar',
           icon: 'pi pi-pencil',
-          routerLink: 'medico'
+          routerLink: 'consulta'
         },
         {
           label: 'Registrar E.',
           icon: 'pi pi-pencil',
-          routerLink: 'medico'
+          routerLink: 'consulta-especial'
         },
         {
           label: 'Registrar W.',
           icon: 'pi pi-paperclip',
-          routerLink: 'medico'
+          routerLink: 'consulta-wizard'
         },
         {
           label: 'Especialidades.',
@@ -71,7 +71,7 @@ export class SidebarComponent implements OnInit {
         {
           label: 'Exámenes',
           icon: 'pi pi-file',
-          routerLink: 'medico'
+          routerLink: 'examen'
         },
         {
           label: 'Pacientes',
