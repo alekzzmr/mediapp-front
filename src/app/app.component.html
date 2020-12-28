@@ -1,10 +1,12 @@
 
-<app-header [sideBar]="menu"></app-header>
+<app-header [sideBar]="menu" *ngIf="loginService.estaLogueado()"></app-header>
 <div class="main-container">
-  <app-sidebar #menu></app-sidebar>
+  <app-sidebar #menu *ngIf="loginService.estaLogueado()"></app-sidebar>
   <div class="content">
     <router-outlet></router-outlet>
   </div>
 </div>
+ <!-- Message -->
+<p-toast></p-toast>
 
 

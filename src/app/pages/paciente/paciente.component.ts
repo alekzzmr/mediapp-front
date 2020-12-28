@@ -4,6 +4,7 @@ import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { PacienteService } from './../../_service/paciente.service';
 import { switchMap } from 'rxjs/operators';
+import { PrimeNGConfig } from 'primeng/api';
 
 
 @Component({
@@ -16,26 +17,33 @@ export class PacienteComponent implements OnInit {
 
   pacientes: Paciente[];
   paciente: Paciente;
+  PacientesPaginate: Paciente[];
 
   loading: boolean;
   submitted: boolean;
   selectedPaciente: Paciente[];
+  totalRecords: number;
+  rows: number = 5;
 
   pacienteDialog: boolean;
 
   constructor(
     private pacienteService: PacienteService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private primengConfig: PrimeNGConfig
   ) { }
 
   ngOnInit(): void {
     this.loading = false;
     this.paciente = new Paciente;
+    this.primengConfig.ripple = true;
 
     this.pacienteService.listar().subscribe(data => {
       this.pacientes = data;
     })
+
+    this.listarPacientePaginate(0, this.rows);
   }
 
   showSelected() {
@@ -111,5 +119,16 @@ export class PacienteComponent implements OnInit {
             this.messageService.add({severity:'success', summary: 'Successful', detail: 'Pacientes eliminados', life: 3000});
         }
     });
+  }
+
+  listarPacientePaginate(p: number, r: number) {
+    this.pacienteService.listarPageable(p, r).subscribe(data => {
+      this.PacientesPaginate = data.content;
+      this.totalRecords = data.totalElements;
+    })
+  }
+
+  cambiarPagina(event) {
+    this.listarPacientePaginate(event.page, event.rows);
   }
 }

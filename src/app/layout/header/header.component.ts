@@ -1,6 +1,9 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { MenuItem } from 'primeng/api';
+import { environment } from 'src/environments/environment';
 import { SidebarComponent } from '../sidebar/sidebar.component';
+import { LoginService } from '../../_service/login.service';
 
 @Component({
   selector: 'app-header',
@@ -17,14 +20,16 @@ export class HeaderComponent implements OnInit {
   items: MenuItem[];
 
   username: string;
-  role: string;
+  roles: string [];
 
-  constructor() { }
+  constructor(
+    public loginService: LoginService
+  ) { }
 
   ngOnInit(): void {
     this.breadcrumb = [
-      { label: 'Categories' },
-      { label: 'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi' }
+      { label: 'Alex Montalvo' },
+      { label: 'Facebook', url: 'https://www.facebook.com/alekzzmr' }
     ];
 
     this.items = [{
@@ -42,12 +47,20 @@ export class HeaderComponent implements OnInit {
       ]
     }];
 
-    this.username = "Alex";
-    this.role = "Admin";
+    this.getSessionData();
+
   }
 
   toggleMenu() {
     this.sideBar.toggle();
+  }
+
+  getSessionData() {
+    const helper = new JwtHelperService();
+    let token = sessionStorage.getItem(environment.TOKEN_NAME);
+    const decodedToken = helper.decodeToken(token);
+    this.username = decodedToken.user_name;
+    this.roles = decodedToken.authorities
   }
 
 }

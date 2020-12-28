@@ -11,9 +11,17 @@
       'font-weight': 'bold'}">
     </p-breadcrumb>
     <div class="user-info">
-      <p class="p-mx-2">Bienvenido, <span class="user-name">{{username}}</span> (<span class="user-role">{{role}}</span>) </p>
-      <button type="button" pButton icon="pi pi-ellipsis-v" [style]="{'border-radius':'50%', 'font-size': '24px', padding: '2px 10px 2px 10px'}" (click)="menu.toggle($event)"></button>
+      <p class="p-mx-2">Bienvenido, <span class="user-name">{{username | uppercase}}</span> (<span class="user-role" *ngFor="let item of roles">{{item+' ' | lowercase}}</span>) </p>
+      <button type="button" pButton icon="pi pi-ellipsis-v" [style]="{'border-radius':'50%', 'font-size': '24px', padding: '2px 10px 2px 10px'}" (click)="op.toggle($event)"></button>
     </div>
   </div>
 </nav>
-<p-menu #menu [popup]="true" [model]="items"></p-menu>
+<!-- <p-menu #menu [popup]="true" [model]="items"></p-menu> -->
+<p-overlayPanel #op>
+  <ng-template pTemplate>
+    <div class="p-d-flex p-flex-column">
+      <p-button label="Perfil" styleClass="p-button-link" icon="pi pi-user"></p-button>
+      <p-button label="Cerrar Session" styleClass="p-button-link" icon="pi pi-sign-out" (click)= "loginService.cerrarSesion()"></p-button>
+    </div>
+  </ng-template>
+</p-overlayPanel>

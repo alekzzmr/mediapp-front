@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { LoginService } from 'src/app/_service/login.service';
+import { MenuService } from 'src/app/_service/menu.service';
+import '../../../assets/login-animation.js';
+import { JwtHelperService } from "@auth0/angular-jwt";
+import { environment } from 'src/environments/environment.js';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +13,37 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  usuario: string;
+  clave: string;
+  mensaje: string;
+  error: string;
+
+  constructor(
+    private loginService: LoginService,
+    private menuService: MenuService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+    sessionStorage.clear();
   }
 
+  iniciarSesion() {
+    this.loginService.login(this.usuario, this.clave).subscribe(data => {
+      //console.log(data);
+      sessionStorage.setItem(environment.TOKEN_NAME, data.access_token);
+
+      const helper = new JwtHelperService();
+      let decodedToken = helper.decodeToken(data.access_token);
+
+      this.menuService.listarPorUsuario(decodedToken.user_name).subscribe(data => {
+        this.loginService.setMenuCambio(data);
+        this.router.navigate(['paciente']);
+      });
+    });
+  }
+
+  ngAfterViewInit() {
+    (window as any).initialize();
+  }
 }

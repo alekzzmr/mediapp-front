@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { LoginService } from '../../_service/login.service';
+import { Menu } from 'src/app/_model/menu';
 
 
 @Component({
@@ -30,13 +32,14 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 export class SidebarComponent implements OnInit {
 
   items: MenuItem[];
-
   isOpen = true;
 
-  constructor() { }
+  constructor(
+    private loginService: LoginService
+  ) { }
 
   ngOnInit(): void {
-    this.items = [{
+    /* this.items = [{
       items: [
         {
           label: 'Buscar',
@@ -47,16 +50,6 @@ export class SidebarComponent implements OnInit {
           label: 'Resgistrar',
           icon: 'pi pi-pencil',
           routerLink: 'consulta'
-        },
-        {
-          label: 'Registrar E.',
-          icon: 'pi pi-pencil',
-          routerLink: 'consulta-especial'
-        },
-        {
-          label: 'Registrar W.',
-          icon: 'pi pi-paperclip',
-          routerLink: 'consulta-wizard'
         },
         {
           label: 'Especialidades.',
@@ -79,26 +72,30 @@ export class SidebarComponent implements OnInit {
           routerLink: 'paciente'
         },
         {
-          label: 'Resportes',
+          label: 'Reportes',
           icon: 'pi pi-chart-bar',
-          routerLink: 'paciente'
+          routerLink: 'reports'
         }
-
-
       ]}
-    ];
-  }
+    ]; */
 
-  update() {
-      alert("updated")
-  }
+    this.loginService.getMenuCambio().subscribe(data => {
 
-  delete() {
-      alert("deleted")
-  }
+      let m = []
+      data.forEach(e=> {
+        m.push({
+          label: e.nombre,
+          icon: e.icono,
+          routerLink : e.url
+        });
+      });
 
+      this.items = [{
+        items: m
+      }];
+    });
+  }
   toggle() {
-    //alert('hola toggle')
     this.isOpen = !this.isOpen;
   }
 

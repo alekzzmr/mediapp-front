@@ -1,0 +1,95 @@
+
+<!-- Chart Card -->
+<p-card header="Reportes de consultas">
+  <p-toolbar styleClass="p-mb-2">
+    <ng-template pTemplate="left">
+      <div class="p-mx-2">
+        <p-radioButton name="charType" value="line" [(ngModel)]="charType" inputId="type1" (click)="onChange()"></p-radioButton>
+        <label for="charType" class="p-mx-1">Lineal</label>
+      </div>
+      <div class="p-mx-2">
+        <p-radioButton name="charType" value="bar" [(ngModel)]="charType" inputId="type2" (click)="onChange()"></p-radioButton>
+        <label for="charType" class="p-mx-1">Barras</label>
+      </div>
+      <div class="p-mx-2">
+        <p-radioButton name="charType" value="doughnut" [(ngModel)]="charType" inputId="type3" (click)="onChange()"></p-radioButton>
+        <label for="charType" class="p-mx-1">Donut</label>
+      </div>
+      <div class="p-mx-2">
+        <p-radioButton name="charType" value="radar" [(ngModel)]="charType" inputId="type4" (click)="onChange()"></p-radioButton>
+        <label for="charType" class="p-mx-1">Radar</label>
+      </div>
+      <div class="p-mx-2">
+        <p-radioButton name="charType" value="pie" [(ngModel)]="charType" inputId="type5" (click)="onChange()"></p-radioButton>
+        <label for="charType" class="p-mx-1">Pie</label>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="right">
+      <button pButton pRipple label="PDF" icon="pi pi-file-pdf" class="p-button-danger p-mx-1" (click)="generarReporte()"></button>
+      <button pButton pRipple label="Descargar PDF" icon="pi pi-cloud-download" class="p-button-secondary p-mx-1" (click)="descargarReporte()"></button>
+    </ng-template>
+  </p-toolbar>
+  <div [hidden]="!chart">
+    <canvas id="canvas">{{chart}}</canvas>
+  </div>
+</p-card>
+
+<!-- Reportes Dialog -->
+<p-dialog [(visible)]="dialogPDF" [modal]="true" [closable]="false">
+  <div class="modal-content">
+    <pdf-viewer [src]="pdfSrc" [render-text]="true"></pdf-viewer>
+  </div>
+  <p-footer>
+    <div class="buttons-modal">
+      <button pButton pRipple label="Cerrar" icon="pi pi-times" class="p-button-outlined p-button-danger"
+        (click)="dialogPDF = !dialogPDF"></button>
+    </div>
+  </p-footer>
+</p-dialog>
+
+<!-- Upload Images Card -->
+<p-card header="Subir archivos" styleClass="p-mt-2" >
+  <p-fileUpload name="demo[]" accept="image/*" customUpload="true" (uploadHandler)="subirArchivo($event)"
+    maxFileSize="1000000" #uploader>
+    <ng-template pTemplate="content">
+      <ul *ngIf="uploadedFiles.length">
+        <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+      </ul>
+    </ng-template>
+  </p-fileUpload>
+
+  <!-- Galleria -->
+
+  <img [src]="imagenData" alt="">
+
+  <!-- <p-galleria #galleria [(value)]="images" [(activeIndex)]="activeIndex" [numVisible]="5"
+    [containerStyle]="{'margin-top':'10px'}" [containerClass]="galleriaClass()" [showThumbnails]="showThumbnails"
+    [showItemNavigators]="true" [showItemNavigatorsOnHover]="true" [circular]="true" [autoPlay]="true"
+    [transitionInterval]="3000">
+    <ng-template pTemplate="item" let-item>
+      <img [src]="item.previewImageSrc"
+        [ngStyle]="{'width': !fullscreen ? '100%' : '', 'display': !fullscreen ? 'block' : ''}" />
+    </ng-template>
+    <ng-template pTemplate="thumbnail" let-item>
+      <div class="p-grid p-nogutter p-justify-center">
+        <img [src]="item.thumbnailImageSrc" />
+      </div>
+    </ng-template>
+    <ng-template pTemplate="footer" let-item>
+      <div class="custom-galleria-footer">
+        <button type="button" pButton icon="pi pi-list" (click)="onThumbnailButtonClick()"></button>
+        <span *ngIf="images" class="title-container">
+          <span>{{activeIndex + 1}}/{{images.length}}</span>
+          <span class="title">{{images[activeIndex].title}}</span>
+          <span>{{images[activeIndex].alt}}</span>
+        </span>
+        <button type="button" pButton [icon]="fullScreenIcon()" (click)="toggleFullScreen()"
+          class="fullscreen-button"></button>
+      </div>
+    </ng-template>
+  </p-galleria> -->
+</p-card>
+
+<!-- Success Message -->
+<p-toast></p-toast>

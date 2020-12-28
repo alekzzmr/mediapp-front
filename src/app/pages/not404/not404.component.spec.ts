@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EspecialComponent } from './especial.component';
+import { Not404Component } from './not404.component';
 
-describe('EspecialComponent', () => {
-  let component: EspecialComponent;
-  let fixture: ComponentFixture<EspecialComponent>;
+describe('Not404Component', () => {
+  let component: Not404Component;
+  let fixture: ComponentFixture<Not404Component>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EspecialComponent ]
+      declarations: [ Not404Component ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EspecialComponent);
+    fixture = TestBed.createComponent(Not404Component);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -18,6 +18,12 @@ import { DataViewModule } from 'primeng/dataview';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
+import { PanelModule } from 'primeng/panel';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { FileUploadModule } from 'primeng/fileupload';
+import { GalleriaModule } from 'primeng/galleria';
+import { PaginatorModule } from 'primeng/paginator';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 @NgModule({
   declarations: [],
@@ -42,7 +48,13 @@ import { CalendarModule } from 'primeng/calendar';
     DataViewModule,
     InputNumberModule,
     DropdownModule,
-    CalendarModule
+    CalendarModule,
+    PanelModule,
+    RadioButtonModule,
+    FileUploadModule,
+    GalleriaModule,
+    PaginatorModule,
+    OverlayPanelModule
   ]
 })
 export class PrimengModule { }

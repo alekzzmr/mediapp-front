@@ -19,9 +19,11 @@ export class LoginService {
     private router: Router
   ) { }
 
-  login(usuario: string, contrasena: string){
-    const body = `grant_type=password&username=${encodeURIComponent(usuario)}&password=${encodeURIComponent(contrasena)}`;
+  login(usuario: string, contrasena: string) {
 
+    console.log("hola");
+
+    const body = `grant_type=password&username=${encodeURIComponent(usuario)}&password=${encodeURIComponent(contrasena)}`;
     return this.http.post<any>(this.url, body, {
       headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8').set('Authorization', 'Basic ' + btoa(environment.TOKEN_AUTH_USERNAME + ':' + environment.TOKEN_AUTH_PASSWORD))
     });
@@ -51,7 +53,7 @@ export class LoginService {
     }else{
       sessionStorage.clear();
       this.router.navigate(['login']);
-    }    
+    }
   }
 
   enviarCorreo(correo: string){
@@ -60,7 +62,7 @@ export class LoginService {
     });
   }
 
-  verificarTokenReset(token: string) {  
+  verificarTokenReset(token: string) {
     return this.http.get<number>(`${environment.HOST}/login/restablecer/verificar/${token}`);
   }
 

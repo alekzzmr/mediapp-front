@@ -1,1 +1,119 @@
-<p>buscar works!</p>
+<p-card header="Buscar">
+  <div class="p-grid p-fluid">
+    <div class="p-field p-col-3">
+      <span class="p-float-label">
+        <p-inputNumber inputId="dni" [(ngModel)]="form.dni" [useGrouping]="false">
+        </p-inputNumber>
+        <label for="detalle">DNI</label>
+      </span>
+    </div>
+    <div class="p-field p-col-3">
+      <span class="p-float-label">
+        <input type="text" pInputText [(ngModel)]="form.nombreCompleto" />
+        <label for="detalle">Nombre o Apellidos</label>
+      </span>
+    </div>
+    <div class="p-field p-col-3">
+      <span class="p-float-label">
+        <p-calendar [(ngModel)]="form.fechaConsulta" [showIcon]="true" inputId="fecha" dateFormat="dd/mm/yy" [locale]="es" [maxDate]="maxFecha"></p-calendar>
+        <label for="detalle">Fecha</label>
+      </span>
+    </div>
+    <div class="p-field p-col-3">
+      <label for="detalle"></label>
+      <p-button label="Buscar" icon="pi pi-search" styleClass="p-button-primary" (click)="buscar()"></p-button>
+    </div>
+  </div>
+
+  <p-table #dt [value]="consultas" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+    [loading]="loading" styleClass="p-datatable-sm" [paginator]="true"
+    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} entradas." [filterDelay]="1"
+    [globalFilterFields]="['paciente','medico']" [rowHover]="true">
+    <ng-template pTemplate="caption">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        <h5 class="p-m-0">Lista de consultas</h5>
+        <div class="table-header">
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+              placeholder="Filtrar" />
+          </span>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="paciente">PACIENTE <p-sortIcon field="paciente"></p-sortIcon></th>
+        <th pSortableColumn="medico">MEDICO <p-sortIcon field="medico"></p-sortIcon></th>
+        <th pSortableColumn="especialidad">ESPECIALIDAD <p-sortIcon field="especialidad"></p-sortIcon></th>
+        <th pSortableColumn="fecha">FECHA <p-sortIcon field="fecha"></p-sortIcon></th>
+        <th>DETALLE</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-consulta>
+      <tr>
+        <td>{{consulta.paciente.nombres | uppercase}} {{consulta.paciente.apellidos | lowercase}}</td>
+        <td>{{consulta.medico.nombres}}</td>
+        <td>{{consulta.especialidad.nombre}}</td>
+        <td>{{consulta.fecha | date:'dd-MM-yyyy hh:mm:ss a'}}</td>
+        <td>
+          <p-button label="Ver detalle" styleClass="p-button-primary" (click)="verDetalle(consulta)"></p-button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="8" class="p-text-center">
+          <h3>NO HAY DATOS DISPONIBLES.</h3>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>
+
+<!-- Detalle Dialog -->
+<p-dialog [(visible)]="detalleDialog" [style]="{width: '600px'}" [modal]="true" [closable]="false">
+  <p-header>
+    Paciente : {{paciente.nombres | uppercase}}
+  </p-header>
+  <div class="modal-content">
+    <p-panel header="Detalles de consulta" styleClass="p-my-1">
+      <p-table [value]="detalleConsulta">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>DIAGNOSTICO</th>
+            <th>TRATAMIENTO</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-detalle>
+          <tr>
+            <td>{{detalle.diagnostico}}</td>
+            <td>{{detalle.tratamiento}}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-panel>
+    <p-panel header="Examenes" styleClass="p-my-1">
+      <p-table [value]="examenes">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>EXAMEN</th>
+            <th>DESCRIPCIÓN</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-examen>
+          <tr>
+            <td>{{examen.examen.nombre}}</td>
+            <td>{{examen.examen.descripcion}}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-panel>
+  </div>
+  <p-footer>
+    <div class="buttons-modal">
+      <button pButton pRipple label="Cerrar" icon="pi pi-times" class="p-button-outlined p-button-danger" (click)="hideDialog()"></button>
+    </div>
+  </p-footer>
+</p-dialog>

@@ -1,26 +1,134 @@
+
+<!-- Main Card -->
 <p-card header="Registrar consulta">
   <div class="p-grid p-fluid">
     <div class="p-field p-col-12">
       <label for="paciente">Paciente</label>
       <p-dropdown [options]="pacientes" [(ngModel)]="paciente" placeholder="Seleccionar paciente" optionLabel="nombres"
-        [showClear]="true" (onChange)="mostrar()">
+        [showClear]="true">
       </p-dropdown>
     </div>
     <div class="p-field p-col-12">
       <label for="medico">Médico</label>
       <p-dropdown [options]="medicos" [(ngModel)]="medico" placeholder="Seleccionar médico" optionLabel="nombres"
-        [showClear]="true" (onChange)="mostrar()">
+        [showClear]="true">
       </p-dropdown>
     </div>
     <div class="p-field p-col-12">
       <label for="especialidad">Especialidad</label>
       <p-dropdown [options]="especialidades" [(ngModel)]="especialidad" placeholder="Seleccionar especialidad" optionLabel="nombre"
-        [showClear]="true" (onChange)="mostrar()">
+        [showClear]="true">
       </p-dropdown>
     </div>
     <div class="p-field p-col-4">
       <label for="fecha">Fecha</label>
-      <p-calendar [(ngModel)]="fecha" [showIcon]="true" inputId="fecha" dateFormat="dd/mm/yy" [locale]="es"></p-calendar>
+      <p-calendar [(ngModel)]="fecha" [showIcon]="true" inputId="fecha" dateFormat="dd/mm/yy" [locale]="es" [maxDate]="maxFecha"></p-calendar>
     </div>
+    <div class="p-field p-col-4">
+      <label for="detalle" >Nuevo detalle</label>
+      <p-button label="Add" icon="pi pi-file" styleClass="p-button-outlined p-button-info" (click)="detalleDialog=!detalleDialog"></p-button>
+    </div>
+    <div class="p-field p-col-4">
+      <label for="examen" >Nuevo examen</label>
+      <p-button label="Add" icon="pi pi-list" styleClass="p-button-outlined p-button-success" (click)="examenDialog=!examenDialog"></p-button>
+    </div>
+    <div class="p-field p-col-12">
+      <p-panel header="Detalles de consulta">
+
+        <p-table [value]="detalleConsulta" *ngIf="detalleConsulta.length>0">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>DIAGNOSTICO</th>
+              <th>TRATAMIENTO</th>
+              <th></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-detalle>
+            <tr>
+              <td>{{detalle.diagnostico}}</td>
+              <td>{{detalle.tratamiento}}</td>
+              <td class="p-text-center"><button pButton pRipple type="button" icon="pi pi-trash"
+                class="p-button-rounded p-button-danger p-button-outlined" (click)="deleteDetalle(detalle)"></button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </p-panel>
+    </div>
+    <div class="p-field p-col-12">
+      <p-panel header="Examenes">
+        <p-table [value]="examenesSeleccionados" *ngIf="examenesSeleccionados.length>0">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>EXAMEN</th>
+              <th>DESCRIPCIÓN</th>
+              <th></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-examen>
+            <tr>
+              <td>{{examen.nombre}}</td>
+              <td>{{examen.descripcion}}</td>
+              <td class="p-text-center"><button pButton pRipple type="button" icon="pi pi-trash"
+                  class="p-button-rounded p-button-danger p-button-outlined" (click)="deleteExamen(examen)"></button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </p-panel>
+    </div>
+
+    <p-button label="Registrar consulta" icon="pi pi-save" styleClass="p-button p-mx-2" (click)="registrarConsulta()" [disabled]="estadoBotonRegistrar()"></p-button>
   </div>
 </p-card>
+
+<!-- Detalle Dialog -->
+<p-dialog [(visible)]="detalleDialog" [style]="{width: '500px'}" [modal]="true">
+  <p-header>
+    Nuevo detalle de consulta
+  </p-header>
+  <div class="modal-content">
+    <div class="p-field form-group">
+      <label for="diagnostico">Diagnosto</label>
+      <input type="text" pInputText id="diagnostico" [(ngModel)]="detConsulta.diagnostico" required autofocus />
+      <small class="p-invalid" *ngIf="submitted && !detConsulta.diagnostico">El Diagnostico es obligatorio.</small>
+    </div>
+
+    <div class="p-field form-group">
+      <label for="tratamiento">Tratamiento</label>
+      <textarea id="tatamiento" pInputTextarea [(ngModel)]="detConsulta.tratamiento" required rows="3" cols="20"></textarea>
+      <small class="p-invalid" *ngIf="submitted && !detConsulta.tratamiento">El Tratamiento es obligatorio.</small>
+    </div>
+  </div>
+  <p-footer>
+    <div class="buttons-modal">
+      <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="detalleDialog=!detalleDialog"></button>
+      <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-text" (click)="AddDetalle()"></button>
+    </div>
+  </p-footer>
+</p-dialog>
+
+<!-- Examen Dialog -->
+<p-dialog [(visible)]="examenDialog" [style]="{width: '500px'}" [modal]="true">
+  <p-header>
+    Nuevo examen
+  </p-header>
+  <div class="modal-content p-fluid" style="height: 200px;">
+    <div class="p-field form-group">
+      <label >Examenes</label>
+      <p-dropdown [options]="examenes" [(ngModel)]="examen" placeholder="Seleccionar examen" optionLabel="nombre"
+        [showClear]="true">
+      </p-dropdown>
+      <!-- <small class="p-invalid" *ngIf="submitted && !detConsulta.diagnostico">El Examen es obligatorio.</small> -->
+    </div>
+  </div>
+  <p-footer>
+    <div class="buttons-modal">
+      <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="examenDialog=!examenDialog"></button>
+      <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-text" (click)="AddExamen()"></button>
+    </div>
+  </p-footer>
+</p-dialog>
+
+<!-- Message -->
+<p-toast></p-toast>

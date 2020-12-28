@@ -131,3 +131,32 @@
 
 <!-- Success Message -->
 <p-toast></p-toast>
+
+<!-- Card Pageable -->
+<p-card header="Paciente- Listar paginacion" styleClass="p-my-2">
+  <p-table [value]="PacientesPaginate">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>ID</th>
+        <th>APELLIDOS</th>
+        <th>NOMBRES</th>
+        <th>DNI</th>
+        <th>DIRECCIÓN</th>
+        <th>TELÉFONO</th>
+        <th>EMAIL</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-paciente>
+      <tr>
+        <td>{{paciente.idPaciente}}</td>
+        <td>{{paciente.apellidos}}</td>
+        <td>{{paciente.nombres}}</td>
+        <td>{{paciente.dni}}</td>
+        <td>{{paciente.direccion}}</td>
+        <td>{{paciente.telefono}}</td>
+        <td>{{paciente.email}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <p-paginator [rows]="rows" [totalRecords]="totalRecords" (onPageChange)="cambiarPagina($event)"></p-paginator>
+</p-card>

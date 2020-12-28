@@ -8,7 +8,7 @@ import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { PrimengModule } from './prime/primeng.module';
 import { FormsModule } from '@angular/forms';
 import { PacienteComponent } from './pages/paciente/paciente.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MedicoComponent } from './pages/medico/medico.component';
 import { TableModule } from 'primeng/table';
 import { ConfirmationService } from 'primeng/api';
@@ -19,8 +19,17 @@ import { EspecialidadComponent } from './pages/especialidad/especialidad.compone
 import { ExamenComponent } from './pages/examen/examen.component';
 import { ConsultaComponent } from './pages/consulta/consulta.component';
 import { BuscarComponent } from './pages/buscar/buscar.component';
-import { EspecialComponent } from './pages/consulta/especial/especial.component';
-import { WizardComponent } from './pages/consulta/wizard/wizard.component';
+import { ReportsComponent } from './pages/reports/reports.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { environment } from 'src/environments/environment';
+import { JwtModule } from '@auth0/angular-jwt';
+import { Not403Component } from './pages/not403/not403.component';
+import { Not404Component } from './pages/not404/not404.component';
+import { ServerErrorsInterceptor } from './shared/server-errors.interceptor';
+
+export function tokenGetter() {
+  return sessionStorage.getItem(environment.TOKEN_NAME);
+}
 
 @NgModule({
   declarations: [
@@ -35,8 +44,9 @@ import { WizardComponent } from './pages/consulta/wizard/wizard.component';
     ExamenComponent,
     ConsultaComponent,
     BuscarComponent,
-    EspecialComponent,
-    WizardComponent
+    ReportsComponent,
+    Not403Component,
+    Not404Component
   ],
   imports: [
     BrowserAnimationsModule,
@@ -45,9 +55,25 @@ import { WizardComponent } from './pages/consulta/wizard/wizard.component';
     PrimengModule,
     FormsModule,
     HttpClientModule,
-    TableModule
+    TableModule,
+    PdfViewerModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: [environment.HOST.substring(7)],
+        disallowedRoutes: [`http://${environment.HOST.substring(7)}/login/enviarCorreo`],
+      },
+    }),
   ],
-  providers: [MessageService, ConfirmationService],
+  providers: [
+    MessageService,
+    ConfirmationService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ServerErrorsInterceptor,
+      multi: true,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

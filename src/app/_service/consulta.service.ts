@@ -44,14 +44,14 @@ export class ConsultaService extends GenericService<Consulta>{
   guardarArchivo(data: File) {
     let formdata: FormData = new FormData();
     formdata.append('adjunto', data);
-    //const medicoBlob = new Blob([JSON.stringify(medico)], { type: "application/json" }); 
+    //const medicoBlob = new Blob([JSON.stringify(medico)], { type: "application/json" });
     //formdata.append('medico', medicoBlob);
 
     return this.http.post(`${this.url}/guardarArchivo`, formdata);
   }
 
   leerArchivo() {
-    return this.http.get(`${this.url}/leerArchivo/1`, {
+    return this.http.get(`${this.url}/leerArchivo/28`, {
       responseType: 'blob'
     });
   }
