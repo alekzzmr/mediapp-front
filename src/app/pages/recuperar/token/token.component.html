@@ -1,0 +1,22 @@
+<div class="p-grid p-jc-center">
+  <div class="contenedor contenedor-default p-col-12 p-md-6 p-lg-4 ">
+    <div class="contenedor-body">
+      <p-messages [(value)]="msgs" [enableService]="false"></p-messages>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="p-fluid">
+          <div class="p-field">
+            <label for="pass">Nueva contraseña</label>
+            <input id="pass" type="password" pPassword  formControlName="password" required/>
+          </div>
+          <div class="p-field">
+            <label for="passconsfirm">Confirmar contraseña</label>
+            <input id="passconsfirm" type="password" pPassword formControlName="confirmPassword" required/>
+          </div>
+          <div class="p-field">
+            <p-button label="Restablecer contraseña" type="submit" [disabled]="form.invalid"></p-button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

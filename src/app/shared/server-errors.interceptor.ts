@@ -29,7 +29,7 @@ export class ServerErrorsInterceptor implements HttpInterceptor {
 
                 //https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
                 if (err.status === 400) {
-                  this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Bad Request', life: 5000 });
+                  this.messageService.add({ severity: 'error', summary: 'Error', detail: err.message, life: 5000 });
                 }
                 else if (err.status === 401) {
                   this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Token vencido', life: 5000 });

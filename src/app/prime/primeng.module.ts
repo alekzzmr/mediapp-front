@@ -24,6 +24,9 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { GalleriaModule } from 'primeng/galleria';
 import { PaginatorModule } from 'primeng/paginator';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { PasswordModule } from 'primeng/password';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
 
 @NgModule({
   declarations: [],
@@ -54,7 +57,10 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     FileUploadModule,
     GalleriaModule,
     PaginatorModule,
-    OverlayPanelModule
+    OverlayPanelModule,
+    PasswordModule,
+    MessagesModule,
+    MessageModule
   ]
 })
 export class PrimengModule { }

@@ -1,0 +1,24 @@
+<div class="p-grid p-jc-center" *ngIf="route.children.length === 0">
+  <div class="contenedor contenedor-default p-col-12 p-md-6 p-lg-4 ">
+    <div class="contenedor-body">
+      <p-messages [(value)]="msgs" [enableService]="false"></p-messages>
+      <div class="p-text-center">
+        <img src="https://image.flaticon.com/icons/png/512/61/61457.png" alt="" style="width: 20%;" class="p-mt-4 p-mb-2">
+        <h2 class="p-my-2 titulo">¿Olvidaste tu contraseña?</h2>
+        <p>Podemos enviarle un correo electrónico para restablecer su contraseña.</p>
+        <div class="p-fluid p-mt-4">
+          <div class="p-field">
+            <div class="p-inputgroup">
+              <span class="p-inputgroup-addon"><i class="pi pi-envelope"></i></span>
+              <input type="text" pInputText placeholder="Correo electrónico" [(ngModel)]="email">
+            </div>
+          </div>
+          <div class="p-field">
+            <p-button label="Enviar mensaje" (click)="enviar()"></p-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<router-outlet *ngIf="route.children.length !== 0"></router-outlet>

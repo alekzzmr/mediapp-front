@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { PrimengModule } from './prime/primeng.module';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { PacienteComponent } from './pages/paciente/paciente.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MedicoComponent } from './pages/medico/medico.component';
@@ -26,6 +26,8 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { Not403Component } from './pages/not403/not403.component';
 import { Not404Component } from './pages/not404/not404.component';
 import { ServerErrorsInterceptor } from './shared/server-errors.interceptor';
+import { RecuperarComponent } from './pages/recuperar/recuperar.component';
+import { TokenComponent } from './pages/recuperar/token/token.component';
 
 export function tokenGetter() {
   return sessionStorage.getItem(environment.TOKEN_NAME);
@@ -46,7 +48,9 @@ export function tokenGetter() {
     BuscarComponent,
     ReportsComponent,
     Not403Component,
-    Not404Component
+    Not404Component,
+    RecuperarComponent,
+    TokenComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -57,6 +61,7 @@ export function tokenGetter() {
     HttpClientModule,
     TableModule,
     PdfViewerModule,
+    ReactiveFormsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

@@ -12,6 +12,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { GuardService } from './_service/guard.service';
 import { Not403Component } from './pages/not403/not403.component';
 import { Not404Component } from './pages/not404/not404.component';
+import { RecuperarComponent } from './pages/recuperar/recuperar.component';
+import { TokenComponent } from './pages/recuperar/token/token.component';
 
 
 const routes: Routes = [
@@ -64,6 +66,11 @@ const routes: Routes = [
   },
   {
     path: 'not-404', component: Not404Component
+  },
+  {
+    path: 'recuperar', component: RecuperarComponent, children: [
+      { path: ':token', component: TokenComponent }
+    ]
   },
   {
     path: '',
