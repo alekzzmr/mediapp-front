@@ -28,6 +28,8 @@ import { Not404Component } from './pages/not404/not404.component';
 import { ServerErrorsInterceptor } from './shared/server-errors.interceptor';
 import { RecuperarComponent } from './pages/recuperar/recuperar.component';
 import { TokenComponent } from './pages/recuperar/token/token.component';
+import { SignoComponent } from './pages/signo/signo.component';
+import { EditarCrearComponent } from './pages/signo/editar-crear/editar-crear.component';
 
 export function tokenGetter() {
   return sessionStorage.getItem(environment.TOKEN_NAME);
@@ -50,7 +52,9 @@ export function tokenGetter() {
     Not403Component,
     Not404Component,
     RecuperarComponent,
-    TokenComponent
+    TokenComponent,
+    SignoComponent,
+    EditarCrearComponent
   ],
   imports: [
     BrowserAnimationsModule,

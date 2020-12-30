@@ -113,6 +113,7 @@ export class ConsultaComponent implements OnInit {
 
       this.consultaService.registrarTransaccion(CLEDTO).subscribe(() => {
         this.messageService.add({ severity: 'success', summary: 'Registro exitoso', detail: "La consulta fue registrada exitosamente", life: 3000 });
+        this.limpiarVariables();
       })
     }
   }
@@ -156,5 +157,14 @@ export class ConsultaComponent implements OnInit {
 
   estadoBotonRegistrar() {
     return (this.detalleConsulta.length === 0 || this.especialidad.idEspecialidad === 0 || this.medico.idMedico === 0 || this.paciente.idPaciente === 0);
+  }
+
+  limpiarVariables() {
+    this.paciente = new Paciente();
+    this.medico = new Medico();
+    this.especialidad = new Especialidad();
+    this.detalleConsulta = [];
+    this.examenesSeleccionados = [];
+    this.fecha = null;
   }
 }

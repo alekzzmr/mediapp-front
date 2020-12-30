@@ -1,0 +1,74 @@
+<router-outlet></router-outlet>
+<p-card header="Signos vitales" [hidden]="route.children.length !== 0">
+  <p-toolbar styleClass="p-mb-2">
+    <ng-template pTemplate="left">
+      <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-primary p-mr-2" (click)="openNew()"></button>
+      <!--       <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedPacientes()"
+        [disabled]="!selectedPaciente || !selectedPaciente.length"></button> -->
+    </ng-template>
+
+    <ng-template pTemplate="right">
+    </ng-template>
+  </p-toolbar>
+
+  <!-- Tabla pacientes -->
+  <p-table #dt [value]="signos" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+    [loading]="loading" styleClass="p-datatable-sm" [paginator]="true"
+    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} entradas." [filterDelay]="1"
+    [globalFilterFields]="['paciente.nombres', 'paciente.apellidos','temperatura','pulso', 'ritmo']" [rowHover]="true"
+    [(selection)]="selectedSigno">
+    <ng-template pTemplate="caption">
+      <div class="table-header">
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+            placeholder="Filtrar" />
+        </span>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 3rem"><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
+        <th pSortableColumn="idSigno" style="width: 4rem" styleClass="p-text-center">Id <p-sortIcon field="idSigno">
+          </p-sortIcon></th>
+        <th pSortableColumn="paciente">PACIENTE <p-sortIcon field="paciente"></p-sortIcon></th>
+        <th pSortableColumn="temperatura">TEMPERATURA <p-sortIcon field="temperatura"></p-sortIcon></th>
+        <th pSortableColumn="pulso">PULSO<p-sortIcon field="pulso"></p-sortIcon></th>
+        <th pSortableColumn="ritmo">RITMO RESPIRATORIO <p-sortIcon field="ritmo"></p-sortIcon></th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-signo>
+      <tr>
+        <td>
+          <p-tableCheckbox [value]="signo"></p-tableCheckbox>
+        </td>
+        <td>{{signo.idSigno}}</td>
+        <td>{{signo.paciente.nombres+' '+signo.paciente.apellidos}}</td>
+        <td>{{signo.temperatura+' °C'}}</td>
+        <td>{{signo.pulso+' (BPM)'}}</td>
+        <td>{{signo.ritmo+' (RPM)'}}</td>
+        <td>
+          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-info p-mr-2"
+            (click)="editSigno(signo)"></button>
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"
+            (click)="deleteSigno(signo)"></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="8" class="p-text-center">
+          <h3>NO HAY DATOS DISPONIBLES.</h3>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>
+
+<!-- Dialog Confirm -->
+<p-confirmDialog [style]="{width: '500px'}"></p-confirmDialog>
+
+<!-- Success Message -->
+<p-toast></p-toast>

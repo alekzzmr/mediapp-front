@@ -27,6 +27,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { PasswordModule } from 'primeng/password';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [],
@@ -60,7 +61,8 @@ import { MessageModule } from 'primeng/message';
     OverlayPanelModule,
     PasswordModule,
     MessagesModule,
-    MessageModule
+    MessageModule,
+    TooltipModule
   ]
 })
 export class PrimengModule { }

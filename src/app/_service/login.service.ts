@@ -71,13 +71,4 @@ export class LoginService {
       headers: new HttpHeaders().set('Content-Type', 'text/plain')
     });
   }
-
-
-  /*
-  POST /oauth/token HTTP/1.1
-  Host: localhost:8080
-  Authorization: Basic bWl0b21lZGlhcHA6bWl0bzg5Y29kZXg=
-  Content-Type: application/x-www-form-urlencoded
-
-  grant_type=password&username=mitotest21@gmail.com&password=123*/
 }

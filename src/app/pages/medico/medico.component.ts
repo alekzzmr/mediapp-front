@@ -34,12 +34,7 @@ export class MedicoComponent implements OnInit {
     })
 
     this.medicoService.getMensajeCambio().subscribe(data => {
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Successful',
-        detail: data,
-        life: 3000
-      });
+      this.messageService.add({ severity: 'success',  summary: 'Successful',  detail: data,  life: 3000 });
     })
   }
 

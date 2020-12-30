@@ -51,7 +51,7 @@ export class ConsultaService extends GenericService<Consulta>{
   }
 
   leerArchivo() {
-    return this.http.get(`${this.url}/leerArchivo/28`, {
+    return this.http.get(`${this.url}/leerArchivo/1`, {
       responseType: 'blob'
     });
   }

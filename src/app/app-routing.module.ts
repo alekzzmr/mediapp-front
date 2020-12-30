@@ -14,6 +14,8 @@ import { Not403Component } from './pages/not403/not403.component';
 import { Not404Component } from './pages/not404/not404.component';
 import { RecuperarComponent } from './pages/recuperar/recuperar.component';
 import { TokenComponent } from './pages/recuperar/token/token.component';
+import { SignoComponent } from './pages/signo/signo.component';
+import { EditarCrearComponent } from './pages/signo/editar-crear/editar-crear.component';
 
 
 const routes: Routes = [
@@ -54,6 +56,13 @@ const routes: Routes = [
   {
     path: 'reports',
     component: ReportsComponent,
+    canActivate: [GuardService]
+  },
+  {
+    path: 'signo', component: SignoComponent, children: [
+      { path: 'create', component: EditarCrearComponent },
+      { path: 'edit/:id', component: EditarCrearComponent },
+    ],
     canActivate: [GuardService]
   },
   {

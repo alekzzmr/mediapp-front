@@ -1,0 +1,100 @@
+<p-card [header]="title">
+  <div class="p-grid p-fluid">
+    <div class="p-field p-col-12">
+      <label for="paciente">Paciente <span><p-button label="Nuevo paciente" (click)="pacienteDialog = !pacienteDialog" styleClass="p-button-link" [style]="{padding: '0px', 'margin-left': '20px', width: 'auto'}" icon="pi pi-plus" iconPos="right"></p-button></span></label>
+      <p-dropdown [options]="pacientes" [(ngModel)]="pacienteSelected" optionLabel="nombres" [filter]="false" filterBy="nombres"
+        [showClear]="true" placeholder="Seleccione el paciente">
+        <ng-template pTemplate="selectedItem">
+          <div class="country-item country-item-value" *ngIf="pacienteSelected">
+            <div>{{pacienteSelected.nombres+' '+pacienteSelected.apellidos}}</div>
+          </div>
+        </ng-template>
+      </p-dropdown>
+    </div>
+    <div class="p-field p-col-12 p-lg-4 p-md-6 p-sm-12">
+      <label for="fecha">Fecha</label>
+      <p-calendar [(ngModel)]="fecha" [showIcon]="true" inputId="fecha" dateFormat="dd/mm/yy"
+        [maxDate]="maxFecha"></p-calendar>
+    </div>
+
+    <div class="p-field p-col-12">
+      <label for="temp">Temperatura</label>
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">°C</span>
+        <p-inputNumber mode="decimal" [(ngModel)]="temp" inputId="temp" [useGrouping]="false"  style="width: 100%"  [maxlength]="5" locale="en-US" [minFractionDigits]="2">
+        </p-inputNumber>
+      </div>
+    </div>
+
+    <div class="p-field p-col-12">
+      <label for="tep">Pulso <span pTooltip="BPM: Batidos por minuto" tooltipPosition="top"><i class="pi pi-info-circle"></i></span></label>
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">BPM</span>
+        <p-inputNumber mode="decimal" [(ngModel)]="pulso" inputId="pulso" [useGrouping]="false" style="width: 100%"  [maxlength]="3">
+        </p-inputNumber>
+      </div>
+    </div>
+
+    <div class="p-field p-col-12">
+      <label for="ritmo">Ritmo respiratorio <span pTooltip="RPM: Respiraciones por minuto" tooltipPosition="top"><i class="pi pi-info-circle"></i></span></label>
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">RPM</span>
+        <p-inputNumber mode="decimal" [(ngModel)]="ritmo" inputId="ritmo" [useGrouping]="false" style="width: 100%"  [maxlength]="3">
+        </p-inputNumber>
+      </div>
+    </div>
+  </div>
+  <div>
+    <button pButton pRipple type="button" label="Guardar" icon="pi pi-save" Class="p-mx-1" [disabled]="validarFormulario()" (click)="saveSigno()"></button>
+    <button pButton pRipple type="button" label="Cancelar" icon="pi pi-times" Class="p-button-secondary p-mx-1" (click)="close()"></button>
+  </div>
+</p-card>
+
+<!-- Modal Nuevo / Editar -->
+<p-dialog [(visible)]="pacienteDialog" [style]="{width: '500px'}" [modal]="true">
+  <p-header>
+    Detalle de paciente
+  </p-header>
+  <div class="modal-content">
+    <div class="p-field form-group">
+      <label for="nombres">Nombres</label>
+      <input type="text" pInputText id="nombres" [(ngModel)]="newPaciente.nombres" required autofocus />
+      <small class="p-invalid" *ngIf="submitted && !newPaciente.nombres">El nombre es obligatorio.</small>
+    </div>
+    <div class="p-field form-group">
+      <label for="apellidos">Apellidos</label>
+      <input type="text" pInputText id="apellidos" [(ngModel)]="newPaciente.apellidos" required />
+      <small class="p-invalid" *ngIf="submitted && !newPaciente.apellidos">Los apellidos son obligatorios.</small>
+    </div>
+    <div class="p-field form-group">
+      <label for="dni">DNI</label>
+      <input type="number" pInputText id="dni" [(ngModel)]="newPaciente.dni" required />
+      <small class="p-invalid" *ngIf="submitted && !newPaciente.dni">El DNI es obligatorio.</small>
+    </div>
+    <div class="p-field form-group">
+      <label for="direccion">Dirección</label>
+      <input type="text" pInputText id="direccion" [(ngModel)]="newPaciente.direccion" />
+      <!-- <small class="p-invalid" *ngIf="submitted">El DNI es obligatorio.</small> -->
+    </div>
+    <div class="p-field form-group">
+      <label for="telefono">Teléfono</label>
+      <p-inputMask [(ngModel)]="newPaciente.telefono" mask="999-999-999"></p-inputMask>
+      <!-- <input type="text" pInputText id="telefono" [(ngModel)]="paciente.telefono" autofocus /> -->
+      <!-- <small class="p-invalid" *ngIf="submitted">El DNI es obligatorio.</small> -->
+    </div>
+    <div class="p-field form-group">
+      <label for="email">E-mail</label>
+      <input type="email" pInputText id="email" [(ngModel)]="newPaciente.email" />
+      <small class="p-invalid" *ngIf="submitted && !newPaciente.email">El e-mail es obligatorio.</small>
+    </div>
+  </div>
+  <p-footer>
+    <div class="buttons-modal">
+      <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="pacienteDialog = !pacienteDialog"></button>
+      <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-text" (click)="savePaciente()"></button>
+    </div>
+  </p-footer>
+</p-dialog>
+
+<!-- Success Message -->
+<p-toast></p-toast>
