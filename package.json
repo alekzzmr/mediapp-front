@@ -27,7 +27,7 @@
     "ng2-pdf-viewer": "^6.3.2",
     "primeflex": "^2.0.0",
     "primeicons": "^4.0.0",
-    "primeng": "^10.0.3",
+    "primeng": "^11.1.0-rc.1",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"

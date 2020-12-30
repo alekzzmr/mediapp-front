@@ -16,6 +16,7 @@ import { RecuperarComponent } from './pages/recuperar/recuperar.component';
 import { TokenComponent } from './pages/recuperar/token/token.component';
 import { SignoComponent } from './pages/signo/signo.component';
 import { EditarCrearComponent } from './pages/signo/editar-crear/editar-crear.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
 
 
 const routes: Routes = [
@@ -63,6 +64,11 @@ const routes: Routes = [
       { path: 'create', component: EditarCrearComponent },
       { path: 'edit/:id', component: EditarCrearComponent },
     ],
+    canActivate: [GuardService]
+  },
+  {
+    path: 'perfil',
+    component: PerfilComponent,
     canActivate: [GuardService]
   },
   {

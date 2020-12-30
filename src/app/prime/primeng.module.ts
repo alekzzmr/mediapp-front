@@ -28,6 +28,8 @@ import { PasswordModule } from 'primeng/password';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { TooltipModule } from 'primeng/tooltip';
+import { AvatarModule } from 'primeng/avatar';
+import { ChipModule } from 'primeng/chip';
 
 @NgModule({
   declarations: [],
@@ -62,7 +64,9 @@ import { TooltipModule } from 'primeng/tooltip';
     PasswordModule,
     MessagesModule,
     MessageModule,
-    TooltipModule
+    TooltipModule,
+    AvatarModule,
+    ChipModule
   ]
 })
 export class PrimengModule { }

@@ -41,7 +41,7 @@ export class GuardService implements CanActivate {
 
           let cont = 0;
           for (let m of data) {
-            if (url.startsWith(m.url)) {
+            if (url.startsWith(m.url) || url.startsWith('/perfil')) {
               cont++;
               break;
             }

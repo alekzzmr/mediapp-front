@@ -47,7 +47,6 @@ export class CreateEditComponent implements OnInit {
         this.medico = data;
       });
     }
-
   };
 
   saveMedico() {

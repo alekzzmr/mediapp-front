@@ -20,7 +20,7 @@
 <p-overlayPanel #op>
   <ng-template pTemplate>
     <div class="p-d-flex p-flex-column">
-      <p-button label="Perfil" styleClass="p-button-link" icon="pi pi-user"></p-button>
+      <p-button label="Perfil" styleClass="p-button-link" icon="pi pi-user" (click)= "irPerfil()"></p-button>
       <p-button label="Cerrar Session" styleClass="p-button-link" icon="pi pi-sign-out" (click)= "loginService.cerrarSesion()"></p-button>
     </div>
   </ng-template>

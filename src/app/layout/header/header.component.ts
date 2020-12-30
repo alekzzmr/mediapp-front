@@ -4,6 +4,7 @@ import { MenuItem } from 'primeng/api';
 import { environment } from 'src/environments/environment';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { LoginService } from '../../_service/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -23,13 +24,14 @@ export class HeaderComponent implements OnInit {
   roles: string [];
 
   constructor(
-    public loginService: LoginService
+    public loginService: LoginService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
     this.breadcrumb = [
-      { label: 'Alex Montalvo' },
-      { label: 'Facebook', url: 'https://www.facebook.com/alekzzmr' }
+      /* { label: 'Alex Montalvo' },
+      { label: 'Facebook', url: 'https://www.facebook.com/alekzzmr' } */
     ];
 
     this.items = [{
@@ -61,6 +63,10 @@ export class HeaderComponent implements OnInit {
     const decodedToken = helper.decodeToken(token);
     this.username = decodedToken.user_name;
     this.roles = decodedToken.authorities
+  }
+
+  irPerfil() {
+    this.router.navigate(['perfil']);
   }
 
 }

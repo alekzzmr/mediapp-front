@@ -1,0 +1,38 @@
+<p-card header="Datos del usuario">
+  <div class="p-grid">
+    <div class="p-col-12">
+      <div class="p-d-flex p-ai-center">
+      <h2 class="p-text-bold">Username:</h2>
+      <p-avatar label="{{username.substring(0,1) | uppercase}}" styleClass="p-mx-2" [style]="{'background-color': '#9c27b0', 'color': '#ffffff'}"></p-avatar>
+      <label>{{username}}</label>
+      </div>
+    </div>
+    <div class="p-col-12">
+      <div class="p-d-flex p-ai-center">
+        <h2 class="p-text-bold">Roles:</h2>
+        <p-chip [label]="item" styleClass="p-mx-2" *ngFor="let item of roles"></p-chip>
+      </div>
+    </div>
+  </div>
+</p-card>
+
+<!-- <p-card header = "Cambiar contraseña" styleClass="p-my-2">
+  <div class="p-grid p-jc-center">
+    <p-messages [(value)]="msgs" [enableService]="false"></p-messages>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="p-fluid">
+        <div class="p-field">
+          <label for="pass">Nueva contraseña</label>
+          <input id="pass" type="password" pPassword formControlName="password" required />
+        </div>
+        <div class="p-field">
+          <label for="passconsfirm">Confirmar contraseña</label>
+          <input id="passconsfirm" type="password" pPassword formControlName="confirmPassword" required />
+        </div>
+        <div class="p-field">
+          <p-button label="Restablecer contraseña" type="submit" [disabled]="form.invalid"></p-button>
+        </div>
+      </div>
+    </form>
+  </div>
+</p-card> -->
