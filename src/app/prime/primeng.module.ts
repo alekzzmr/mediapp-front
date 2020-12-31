@@ -30,6 +30,8 @@ import { MessageModule } from 'primeng/message';
 import { TooltipModule } from 'primeng/tooltip';
 import { AvatarModule } from 'primeng/avatar';
 import { ChipModule } from 'primeng/chip';
+import { BadgeModule } from 'primeng/badge';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 @NgModule({
   declarations: [],
@@ -66,7 +68,10 @@ import { ChipModule } from 'primeng/chip';
     MessageModule,
     TooltipModule,
     AvatarModule,
-    ChipModule
+    ChipModule,
+    BadgeModule,
+    InputSwitchModule
+
   ]
 })
 export class PrimengModule { }

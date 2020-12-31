@@ -31,6 +31,9 @@ import { TokenComponent } from './pages/recuperar/token/token.component';
 import { SignoComponent } from './pages/signo/signo.component';
 import { EditarCrearComponent } from './pages/signo/editar-crear/editar-crear.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
+import { UsuarioComponent } from './pages/usuario/usuario.component';
+import { RolComponent } from './pages/rol/rol.component';
+import { MenuComponent } from './pages/menu/menu.component';
 
 export function tokenGetter() {
   return sessionStorage.getItem(environment.TOKEN_NAME);
@@ -56,7 +59,10 @@ export function tokenGetter() {
     TokenComponent,
     SignoComponent,
     EditarCrearComponent,
-    PerfilComponent
+    PerfilComponent,
+    UsuarioComponent,
+    RolComponent,
+    MenuComponent
   ],
   imports: [
     BrowserAnimationsModule,

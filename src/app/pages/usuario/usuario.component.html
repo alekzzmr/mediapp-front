@@ -1,0 +1,105 @@
+<p-card header="Usuarios">
+  <!-- Toolbar -->
+  <p-toolbar styleClass="p-mb-2">
+    <ng-template pTemplate="left">
+      <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-primary p-mr-2"
+        (click)="openNew()"></button>
+      <!--       <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedPacientes()"
+        [disabled]="!selectedPaciente || !selectedPaciente.length"></button> -->
+    </ng-template>
+
+    <ng-template pTemplate="right">
+    </ng-template>
+  </p-toolbar>
+
+  <!-- Tabla pacientes -->
+  <p-table #dt [value]="usuarios" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+    [loading]="loading" styleClass="p-datatable-sm" [paginator]="true"
+    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} entradas." [filterDelay]="1"
+    [globalFilterFields]="['idUsuario','username']" [rowHover]="true" [(selection)]="selectedUsuario">
+    <ng-template pTemplate="caption">
+      <div class="table-header">
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+            placeholder="Filtrar" />
+        </span>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 3rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th pSortableColumn="idUsuario" style="width: 4rem" styleClass="p-text-center">ID <p-sortIcon field="idUsuario">
+          </p-sortIcon>
+        </th>
+        <th pSortableColumn="username">NOMBRE DE USUARIO<p-sortIcon field="username"></p-sortIcon>
+        </th>
+        <th> ESTADO </th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-usuario>
+      <tr>
+        <td>
+          <p-tableCheckbox [value]="usuario"></p-tableCheckbox>
+        </td>
+        <td>{{usuario.idUsuario}}</td>
+        <td>{{usuario.username}}</td>
+        <td><p-badge [value]="[usuario.enabled ? 'activo' : 'inactivo']" severity="{{[usuario.enabled ? 'success' : 'danger']}}"></p-badge></td>
+        <td>
+          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-info p-mr-2"
+            (click)="editUsuario(usuario)"></button>
+          <button pButton pRipple icon="pi pi-eye-slash" class="p-button-rounded p-button-secondary"
+            (click)="deleteUsuario(usuario)"></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="8" class="p-text-center">
+          <h3>NO HAY DATOS DISPONIBLES.</h3>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>
+
+<!-- Modal Nuevo / Editar -->
+<p-dialog [(visible)]="usuarioDialog" [style]="{width: '500px'}" [modal]="true">
+  <p-header>
+    Detalle de examen
+  </p-header>
+  <div class="modal-content">
+    <div class="p-field form-group">
+      <label for="username">Nombre de usuario</label>
+      <input type="text" pInputText id="username" [(ngModel)]="usuario.username" required autofocus />
+      <small class="p-invalid" *ngIf="submitted && !usuario.username">El nombre es obligatorio.</small>
+    </div>
+
+    <div class="p-field form-group" *ngIf="!usuario.idUsuario">
+      <label for="pass">Contraseña</label>
+      <input id="pass" type="password" pPassword [(ngModel)]="usuario.password" required />
+      <small class="p-invalid" *ngIf="submitted && !usuario.password">El nombre es obligatorio.</small>
+    </div>
+
+    <div class="p-field form-group">
+      <label for="estado">Estado</label>
+      <p-inputSwitch id="estado" [(ngModel)]="usuario.enabled" styleClass="p-mx-2"></p-inputSwitch>
+    </div>
+  </div>
+  <p-footer>
+    <div class="buttons-modal">
+      <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+      <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-text" (click)="saveUsuario()"></button>
+    </div>
+  </p-footer>
+</p-dialog>
+
+<!-- Dialog Confirm -->
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+
+<!-- Success Message -->
+<p-toast></p-toast>

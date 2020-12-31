@@ -17,6 +17,7 @@ import { TokenComponent } from './pages/recuperar/token/token.component';
 import { SignoComponent } from './pages/signo/signo.component';
 import { EditarCrearComponent } from './pages/signo/editar-crear/editar-crear.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
+import { UsuarioComponent } from './pages/usuario/usuario.component';
 
 
 const routes: Routes = [
@@ -69,6 +70,11 @@ const routes: Routes = [
   {
     path: 'perfil',
     component: PerfilComponent,
+    canActivate: [GuardService]
+  },
+  {
+    path: 'usuario',
+    component: UsuarioComponent,
     canActivate: [GuardService]
   },
   {

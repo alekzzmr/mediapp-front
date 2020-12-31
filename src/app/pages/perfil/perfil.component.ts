@@ -3,9 +3,12 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Message } from 'primeng/api';
+import { from } from 'rxjs';
 import { LoginService } from 'src/app/_service/login.service';
 import { environment } from 'src/environments/environment';
 import { PasswordValidation } from '../recuperar/token/match';
+import { Usuario } from '../../_model/usuario';
+import { UsuarioService } from '../../_service/usuario.service';
 
 @Component({
   selector: 'app-perfil',
@@ -23,6 +26,7 @@ export class PerfilComponent implements OnInit {
     private loginService: LoginService,
     private router: Router,
     private fb: FormBuilder,
+    private usuarioService: UsuarioService
   ) { }
 
   ngOnInit(): void {
@@ -42,15 +46,26 @@ export class PerfilComponent implements OnInit {
   }
 
   onSubmit() {
-    //console.log(this.form.invalid);
-    let clave: string = this.form.value.confirmPassword;
+    this.usuarioService.findByUsername(this.username).subscribe(data => {
+      let user = data as Usuario;
+      user.password = this.form.value.password;
+      this.usuarioService.cambiarPassword(user).subscribe(data => {
+        this.msgs = [{ severity: 'success', summary: 'Success', detail: 'Se cambio la contraseña.' }];
+        setTimeout(() => {
+          this.loginService.cerrarSesion();
+          this.router.navigate(['login']);
+        }, 2000);
+      });
+    });
+
+
+    /* let clave: string = this.form.value.confirmPassword;
     this.loginService.restablecer(this.token, clave).subscribe(data => {
       this.msgs = [{ severity: 'success', summary: 'Success', detail: 'Se cambio la contraseña.' }];
-      /* this.mensaje = 'Se cambio la contraseña'; */
       setTimeout(() => {
         this.loginService.cerrarSesion();
         this.router.navigate(['login']);
       }, 2000);
-    });
+    }); */
   }
 }
