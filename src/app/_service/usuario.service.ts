@@ -42,4 +42,8 @@ export class UsuarioService extends GenericService<Usuario>{
     return this.http.post(`${environment.HOST}/usuarios/listarpornombre`, username,
     { headers: new HttpHeaders().set('Content-Type', 'text/plain') });
   }
+
+  asignarRol(usuario: Usuario) {
+    return this.http.put(`${environment.HOST}/usuarios/asignar-rol`, usuario);
+  }
 }

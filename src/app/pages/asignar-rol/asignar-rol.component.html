@@ -1,0 +1,40 @@
+<p-card header="Asignar rol a usuario">
+  <p-toolbar styleClass="p-mb-2">
+    <ng-template pTemplate="left">
+      <p-dropdown [options]="usuarios" [(ngModel)]="usuarioSelected" optionLabel="username" [filter]="true" filterBy="username"
+      placeholder="Seleccione el usuario" (onChange)="getRolesUsuario()"></p-dropdown>
+    </ng-template>
+
+  </p-toolbar>
+  <p-pickList [source]="usuarioSelected.roles" [target]="rolesUsuarioNoAsignado" sourceHeader="Roles asignados" targetHeader="Roles no asignados"
+    [dragdrop]="true" [responsive]="true" filterBy="descripcion" sourceFilterPlaceholder="Filtrar rol" targetFilterPlaceholder="Filtrar rol"
+    [showSourceControls]="false" [showTargetControls]="false" [metaKeySelection]="false" (onMoveToTarget)="cambioUsuarioRol()"
+    (onMoveToSource)="cambioUsuarioRol()" (onMoveAllToTarget)="cambioUsuarioRol()" (onMoveAllToSource)="cambioUsuarioRol()">
+    <ng-template let-rol pTemplate="item">
+      <div>
+        <div class="p-text-bold">{{rol.descripcion}}</div>
+      </div>
+    </ng-template>
+  </p-pickList>
+</p-card>
+
+<p-card header="Asignar rol a menu" styleClass="p-my-2">
+  <p-toolbar styleClass="p-mb-2">
+    <ng-template pTemplate="left">
+      <p-dropdown [options]="menus" [(ngModel)]="menuSelected" optionLabel="nombre" [filter]="true"
+        filterBy="nombre" placeholder="Seleccione el menu" (onChange)="getRolesMenu()"></p-dropdown>
+    </ng-template>
+
+  </p-toolbar>
+  <p-pickList [source]="menuSelected.roles" [target]="rolesMenuNoAsignado" sourceHeader="Roles asignados"
+    targetHeader="Roles no asignados" [dragdrop]="true" [responsive]="true" filterBy="descripcion"
+    sourceFilterPlaceholder="Filtrar rol" targetFilterPlaceholder="Filtrar rol" [showSourceControls]="false"
+    [showTargetControls]="false" [metaKeySelection]="false" (onMoveToTarget)="cambioMenuRol()" (onMoveToSource)="cambioMenuRol()"
+    (onMoveAllToTarget)="cambioMenuRol()" (onMoveAllToSource)="cambioMenuRol()">
+    <ng-template let-rol pTemplate="item">
+      <div>
+        <div class="p-text-bold">{{rol.descripcion}}</div>
+      </div>
+    </ng-template>
+  </p-pickList>
+</p-card>

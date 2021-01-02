@@ -34,6 +34,7 @@ import { PerfilComponent } from './pages/perfil/perfil.component';
 import { UsuarioComponent } from './pages/usuario/usuario.component';
 import { RolComponent } from './pages/rol/rol.component';
 import { MenuComponent } from './pages/menu/menu.component';
+import { AsignarRolComponent } from './pages/asignar-rol/asignar-rol.component';
 
 export function tokenGetter() {
   return sessionStorage.getItem(environment.TOKEN_NAME);
@@ -62,7 +63,8 @@ export function tokenGetter() {
     PerfilComponent,
     UsuarioComponent,
     RolComponent,
-    MenuComponent
+    MenuComponent,
+    AsignarRolComponent
   ],
   imports: [
     BrowserAnimationsModule,

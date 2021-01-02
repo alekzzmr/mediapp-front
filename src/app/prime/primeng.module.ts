@@ -32,6 +32,8 @@ import { AvatarModule } from 'primeng/avatar';
 import { ChipModule } from 'primeng/chip';
 import { BadgeModule } from 'primeng/badge';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { PickListModule } from 'primeng/picklist';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 @NgModule({
   declarations: [],
@@ -70,7 +72,9 @@ import { InputSwitchModule } from 'primeng/inputswitch';
     AvatarModule,
     ChipModule,
     BadgeModule,
-    InputSwitchModule
+    InputSwitchModule,
+    PickListModule,
+    MultiSelectModule
 
   ]
 })

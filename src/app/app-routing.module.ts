@@ -18,6 +18,9 @@ import { SignoComponent } from './pages/signo/signo.component';
 import { EditarCrearComponent } from './pages/signo/editar-crear/editar-crear.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { UsuarioComponent } from './pages/usuario/usuario.component';
+import { MenuComponent } from './pages/menu/menu.component';
+import { RolComponent } from './pages/rol/rol.component';
+import { AsignarRolComponent } from './pages/asignar-rol/asignar-rol.component';
 
 
 const routes: Routes = [
@@ -75,6 +78,21 @@ const routes: Routes = [
   {
     path: 'usuario',
     component: UsuarioComponent,
+    canActivate: [GuardService]
+  },
+  {
+    path: 'menu',
+    component: MenuComponent,
+    canActivate: [GuardService]
+  },
+  {
+    path: 'rol',
+    component: RolComponent,
+    canActivate: [GuardService]
+  },
+  {
+    path: 'asignar-rol',
+    component: AsignarRolComponent,
     canActivate: [GuardService]
   },
   {

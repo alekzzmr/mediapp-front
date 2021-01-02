@@ -1,1 +1,129 @@
-<p>menu works!</p>
+<p-card header="Lista de Menus">
+  <!-- Toolbar -->
+  <p-toolbar styleClass="p-mb-2">
+    <ng-template pTemplate="left">
+      <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-primary p-mr-2"
+        (click)="openNew()"></button>
+      <!--       <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedPacientes()"
+          [disabled]="!selectedPaciente || !selectedPaciente.length"></button> -->
+    </ng-template>
+
+    <ng-template pTemplate="right">
+    </ng-template>
+  </p-toolbar>
+
+  <!-- Tabla pacientes -->
+  <p-table #dt [value]="menus" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+    [loading]="loading" styleClass="p-datatable-sm" [paginator]="true"
+    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} entradas." [filterDelay]="1"
+    [globalFilterFields]="['idMenu','nombre', 'url']" [rowHover]="true" [(selection)]="selectedMenu">
+    <ng-template pTemplate="caption">
+      <div class="table-header">
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+            placeholder="Filtrar" />
+        </span>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 3rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th pSortableColumn="idMenu" style="width: 4rem" styleClass="p-text-center">ID <p-sortIcon field="idMenu">
+          </p-sortIcon>
+        </th>
+        <th pSortableColumn="nombre">NOMBRE<p-sortIcon field="nombre"></p-sortIcon></th>
+        <th>ICONO</th>
+        <th pSortableColumn="url">URL<p-sortIcon field="url"></p-sortIcon></th>
+        <th>ROLES</th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-menu>
+      <tr>
+        <td>
+          <p-tableCheckbox [value]="menu"></p-tableCheckbox>
+        </td>
+        <td>{{menu.idMenu}}</td>
+        <td>{{menu.nombre}}</td>
+        <td><i class="{{menu.icono}}"></i> <span class="p-mx-2">{{menu.icono}}</span></td>
+        <td>{{menu.url}}</td>
+        <td>
+          <p-chip [label]="item.nombre" styleClass="p-mx-2" *ngFor="let item of menu.roles"></p-chip>
+        </td>
+        <td>
+          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-info p-mr-2"
+            (click)="editMenu(menu)"></button>
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"
+            (click)="deleteMenu(menu)"></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="8" class="p-text-center">
+          <h3>NO HAY DATOS DISPONIBLES.</h3>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>
+
+<p-dialog [(visible)]="menuDialog" [style]="{width: '500px'}" [modal]="true">
+  <p-header>
+    Detalle de menu
+  </p-header>
+  <div class="modal-content">
+    <div class="p-field form-group">
+      <label for="nombre">Nombre de menu</label>
+      <input type="text" pInputText id="nombre" [(ngModel)]="menu.nombre" required autofocus />
+      <small class="p-invalid" *ngIf="submitted && !menu.nombre">El nombre es obligatorio.</small>
+    </div>
+
+    <div class="p-field form-group">
+      <label for="icono">Icono</label>
+      <p-dropdown [options]="iconos" [(ngModel)]="menu.icono" [showClear]="true" [filter]="true" optionLabel="name" optionValue="name" filterBy="name"  placeholder="Selecciona el icono" id="icono" required>
+        <ng-template pTemplate="selectedItem">
+          <div class="p-d-flex" *ngIf="menu.icono">
+            <span><i class="{{menu.icono}}"></i></span>
+            <div class="p-mx-2">{{menu.icono}}</div>
+          </div>
+        </ng-template>
+        <ng-template let-icono pTemplate="item">
+          <div class="p-d-flex">
+            <i class="{{icono.name}}"></i>
+            <div class="p-mx-2">{{icono.name}}</div>
+          </div>
+        </ng-template>
+      </p-dropdown>
+      <small class="p-invalid" *ngIf="submitted && !menu.icono">El nombre es obligatorio.</small>
+    </div>
+
+    <div class="p-field form-group">
+      <label for="url">URL</label>
+      <input type="text" pInputText id="url" [(ngModel)]="menu.url" required autofocus />
+      <small class="p-invalid" *ngIf="submitted && !menu.url">La URL es obligatorio.</small>
+    </div>
+
+    <div class="p-field form-group">
+      <label for="rol">Roles</label>
+      <p-multiSelect [options]="roles" [(ngModel)]="menu.roles" id="rol" defaultLabel="Selecciona el rol"
+        optionLabel="nombre" display="chip"></p-multiSelect>
+    </div>
+  </div>
+  <p-footer>
+    <div class="buttons-modal">
+      <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+      <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-text" (click)="saveMenu()"></button>
+    </div>
+  </p-footer>
+</p-dialog>
+
+<!-- Dialog Confirm -->
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+
+<!-- Success Message -->
+<p-toast></p-toast>

@@ -38,6 +38,7 @@
         <th pSortableColumn="username">NOMBRE DE USUARIO<p-sortIcon field="username"></p-sortIcon>
         </th>
         <th> ESTADO </th>
+        <th> ROLES </th>
         <th></th>
       </tr>
     </ng-template>
@@ -49,11 +50,12 @@
         <td>{{usuario.idUsuario}}</td>
         <td>{{usuario.username}}</td>
         <td><p-badge [value]="[usuario.enabled ? 'activo' : 'inactivo']" severity="{{[usuario.enabled ? 'success' : 'danger']}}"></p-badge></td>
+        <td><p-chip [label]="item.nombre" styleClass="p-mx-2" *ngFor="let item of usuario.roles"></p-chip></td>
         <td>
           <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-info p-mr-2"
             (click)="editUsuario(usuario)"></button>
           <button pButton pRipple icon="pi pi-eye-slash" class="p-button-rounded p-button-secondary"
-            (click)="deleteUsuario(usuario)"></button>
+            (click)="deleteUsuario(usuario)" *ngIf="usuario.enabled"></button>
         </td>
       </tr>
     </ng-template>
@@ -89,6 +91,13 @@
       <label for="estado">Estado</label>
       <p-inputSwitch id="estado" [(ngModel)]="usuario.enabled" styleClass="p-mx-2"></p-inputSwitch>
     </div>
+
+    <div class="p-field form-group">
+      <label for="rol">Roles</label>
+      <p-multiSelect [options]="roles" [(ngModel)]="usuario.roles" id="rol" defaultLabel="Selecciona el rol" optionLabel="nombre"
+        display="chip"></p-multiSelect>
+    </div>
+
   </div>
   <p-footer>
     <div class="buttons-modal">

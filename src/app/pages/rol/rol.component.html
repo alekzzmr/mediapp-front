@@ -1,1 +1,101 @@
-<p>rol works!</p>
+<p-card header="Lista de Roles">
+  <!-- Toolbar -->
+  <p-toolbar styleClass="p-mb-2">
+    <ng-template pTemplate="left">
+      <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-primary p-mr-2"
+        (click)="openNew()"></button>
+      <!--       <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedPacientes()"
+          [disabled]="!selectedPaciente || !selectedPaciente.length"></button> -->
+    </ng-template>
+
+    <ng-template pTemplate="right">
+    </ng-template>
+  </p-toolbar>
+
+  <!-- Tabla pacientes -->
+  <p-table #dt [value]="roles" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+    [loading]="loading" styleClass="p-datatable-sm" [paginator]="true"
+    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} entradas." [filterDelay]="1"
+    [globalFilterFields]="['idRol','nombre', 'descripcion']" [rowHover]="true" [(selection)]="selectedRol">
+    <ng-template pTemplate="caption">
+      <div class="table-header">
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+            placeholder="Filtrar" />
+        </span>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 3rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th pSortableColumn="idRol" style="width: 4rem" styleClass="p-text-center">ID <p-sortIcon field="idRol">
+          </p-sortIcon>
+        </th>
+        <th pSortableColumn="nombre">NOMBRE<p-sortIcon field="nombre"></p-sortIcon>
+        </th>
+        <th>ICONO</th>
+        <th pSortableColumn="descripcion">DESCRIPCION<p-sortIcon field="decripcion"></p-sortIcon>
+        </th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rol>
+      <tr>
+        <td>
+          <p-tableCheckbox [value]="rol"></p-tableCheckbox>
+        </td>
+        <td>{{rol.idRol}}</td>
+        <td>{{rol.nombre}}</td>
+        <td>{{rol.descripcion}}</td>
+        <td>
+          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-info p-mr-2"
+            (click)="editRol(rol)"></button>
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"
+            (click)="deleteRol(rol)"></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="8" class="p-text-center">
+          <h3>NO HAY DATOS DISPONIBLES.</h3>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>
+
+<p-dialog [(visible)]="rolDialog" [style]="{width: '500px'}" [modal]="true">
+  <p-header>
+    Detalle de rol
+  </p-header>
+  <div class="modal-content">
+    <div class="p-field form-group">
+      <label for="nombre">Nombre de rol</label>
+      <input type="text" pInputText id="nombre" [(ngModel)]="rol.nombre" required autofocus />
+      <small class="p-invalid" *ngIf="submitted && !rol.nombre">El nombre es obligatorio.</small>
+    </div>
+
+    <div class="p-field form-group">
+      <label for="descripcion">URL</label>
+      <input type="text" pInputText id="descripcion" [(ngModel)]="rol.descripcion" required autofocus />
+      <small class="p-invalid" *ngIf="submitted && !rol.descripcion">La descripcion es obligatorio.</small>
+    </div>
+  </div>
+  <p-footer>
+    <div class="buttons-modal">
+      <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+      <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-text" (click)="saveRol()"></button>
+    </div>
+  </p-footer>
+</p-dialog>
+
+<!-- Dialog Confirm -->
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+
+<!-- Success Message -->
+<p-toast></p-toast>

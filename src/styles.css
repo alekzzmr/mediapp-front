@@ -10,3 +10,7 @@ body {
   color: var(--text-color);
   font-family: IBM Plex Sans, sans-serif;
 }
+
+.form-group {
+  display: grid;
+}

@@ -3,6 +3,8 @@ import { Usuario } from 'src/app/_model/usuario';
 import { UsuarioService } from 'src/app/_service/usuario.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { switchMap } from 'rxjs/operators';
+import { Rol } from '../../_model/rol';
+import { RolService } from '../../_service/rol.service';
 
 @Component({
   selector: 'app-usuario',
@@ -14,6 +16,8 @@ export class UsuarioComponent implements OnInit {
   usuarios: Usuario[];
   usuario: Usuario = new Usuario();
 
+  roles: Rol[];
+
   loading: boolean;
   submitted: boolean;
   selectedUsuario: Usuario[];
@@ -21,6 +25,7 @@ export class UsuarioComponent implements OnInit {
   usuarioDialog: boolean;
   constructor(
     private usuarioService: UsuarioService,
+    private rolService: RolService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
   ) { }
@@ -28,6 +33,10 @@ export class UsuarioComponent implements OnInit {
   ngOnInit(): void {
     this.usuarioService.listar().subscribe(data => {
       this.usuarios = data;
+    });
+
+    this.rolService.listar().subscribe(data => {
+      this.roles = data;
     });
 
     this.usuarioService.getMensajeCambio().subscribe(data => {
@@ -63,7 +72,7 @@ export class UsuarioComponent implements OnInit {
           return this.usuarioService.listar();
         })).subscribe(data => {
           this.usuarioService.setUsuarioCambio(data);
-          this.usuarioService.setMensajeCambio('examen modificada');
+          this.usuarioService.setMensajeCambio('Usuario modificado');
           this.usuarioDialog = false;
         });
       } else {
@@ -71,7 +80,7 @@ export class UsuarioComponent implements OnInit {
           return this.usuarioService.listar();
         })).subscribe(data => {
           this.usuarioService.setUsuarioCambio(data);
-          this.usuarioService.setMensajeCambio('Examen registrado');
+          this.usuarioService.setMensajeCambio('Usuario registrado');
           this.usuarioDialog = false;
         });
       }
